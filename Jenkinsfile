@@ -1,0 +1,81 @@
+@Library('retort-lib') _
+import java.text.SimpleDateFormat
+import java.lang.Integer
+def label = "jenkins-${UUID.randomUUID().toString()}"
+
+def ZCP_USERID = 'mos'
+def DOCKER_IMAGE = 'skn-mos/skn-mos-master'
+def K8S_NAMESPACE = 'skn-mos-app-dev'
+
+def dateFormat1 = new SimpleDateFormat("yyyyMMddHHmm")
+def dateFormat2 = new SimpleDateFormat("HH")
+def date = new Date()
+def tempVer = dateFormat2.format(date).toInteger() % 2
+if(tempVer==0){
+	VERSION = 'EVEN'
+}else{
+	VERSION = 'ODD'
+}
+
+println("------------------------------------------------------------------------------------------------------------")
+println(dateFormat1.format(date))
+println(tempVer)
+println(VERSION)
+println("------------------------------------------------------------------------------------------------------------")
+
+// HARBOR_REGISTRY : 별도 Global로 세팅 된 변수임.
+// HARBOR_CREDENTIALS : Jenkins폴더에 Credential로 등록한 이름과 같아야 함
+
+/*
+podTemplate(label:label,
+    serviceAccount: "zcp-system-sa-${ZCP_USERID}",
+    containers: [
+        containerTemplate(name: 'jnlp', image: 'skn-mos-dev-registry.cloudzcp.io/cloudzcp/jnlp-slave:alpine', args:'${computer.jnlpmac} ${computer.name}'),
+        containerTemplate(name: 'maven', image: 'skn-mos-dev-registry.cloudzcp.io/cloudzcp/maven:3.5.2-jdk-8-alpine', ttyEnabled: true, command: 'cat'),
+        containerTemplate(name: 'docker', image: 'skn-mos-dev-registry.cloudzcp.io/cloudzcp/docker:17-dind', ttyEnabled: true, command: 'dockerd-entrypoint.sh', privileged: true),
+        containerTemplate(name: 'kubectl', image: 'skn-mos-dev-registry.cloudzcp.io/cloudzcp/k8s-kubectl:v1.13.6', ttyEnabled: true, command: 'cat')
+    ],
+    volumes: [
+        persistentVolumeClaim(mountPath: '/root/.m2', claimName: 'zcp-jenkins-mvn-repo')
+    ]) {
+
+    node(label) {
+        stage('SOURCE CHECKOUT') {
+            def repo = checkout scm
+            env.SCM_INFO = repo.inspect()
+        }
+
+        stage('BUILD MAVEN') {
+            container('maven') {
+                mavenBuild goal: 'clean package -U', systemProperties:['maven.repo.local':"/root/.m2/${JOB_NAME}"], globalSettingsID: 'MAVEN_GLOBAL_SETTINGS'
+            }
+        }
+
+        stage('BUILD DOCKER IMAGE') {
+            container('docker') {
+                dockerCmd.build tag: "${HARBOR_REGISTRY}/${DOCKER_IMAGE}:${VERSION}"
+                dockerCmd.push registry: HARBOR_REGISTRY, imageName: DOCKER_IMAGE, imageVersion: VERSION, credentialsId: "HARBOR_CREDENTIALS"
+            }
+        }
+
+        stage('DEPLOY') {
+            container('kubectl') {
+                kubeCmd.apply file: 'k8s/configmap.yaml', namespace: K8S_NAMESPACE
+                kubeCmd.apply file: 'k8s/service.yaml', namespace: K8S_NAMESPACE
+                yaml.update file: 'k8s/deployment.yaml', update: ['.spec.template.spec.containers[0].image': "${HARBOR_REGISTRY}/${DOCKER_IMAGE}:${VERSION}"]
+//                def exists = kubeCmd.resourceExists file: 'k8s/deployment.yaml', namespace: K8S_NAMESPACE
+//                if (exists) {
+//                    kubeCmd.scale file: 'k8s/deployment.yaml', replicas: 0, namespace: K8S_NAMESPACE
+//                }
+                kubeCmd.apply file: 'k8s/deployment.yaml', namespace: K8S_NAMESPACE, wait: 300
+            }
+        }
+
+//        stage('TAGGING') {
+//            if ('develop' != VERSION) {
+//                gitCmd.tag tag: VERSION, credentialsId: 'GIT_CREDENTIALS'
+//            }
+//        }
+    }
+}
+*/
