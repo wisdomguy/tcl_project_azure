@@ -1,4 +1,4 @@
-@Library('retort-lib') _
+//@Library('retort-lib') _
 import java.text.SimpleDateFormat
 import java.lang.Integer
 def label = "jenkins-${UUID.randomUUID().toString()}"
