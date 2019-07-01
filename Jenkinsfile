@@ -23,7 +23,16 @@ println(tempVer)
 println(VERSION)
 println("------------------------------------------------------------------------------------------------------------")
 
+label = "mypod-${UUID.randomUUID().toString()}"
+podTemplate(label: label) {
+    node(label) {
+        stage('Run shell') {
+            sh 'echo hello world'
+        }
+    }
+}
 
+/*
 //def label = "maven-${UUID.randomUUID().toString()}"
 label = "maven-${UUID.randomUUID().toString()}"
 def mvnOpts = '-DskipTests -ntp -Darguments="-DskipTests -ntp"'
@@ -50,6 +59,7 @@ podTemplate(label: label, containers: [
     }
   }
 }
+*/
 // HARBOR_REGISTRY : 별도 Global로 세팅 된 변수임.
 // HARBOR_CREDENTIALS : Jenkins폴더에 Credential로 등록한 이름과 같아야 함
 
