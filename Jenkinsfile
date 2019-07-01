@@ -23,6 +23,32 @@ println(tempVer)
 println(VERSION)
 println("------------------------------------------------------------------------------------------------------------")
 
+
+def label = "maven-${UUID.randomUUID().toString()}"
+def mvnOpts = '-DskipTests -ntp -Darguments="-DskipTests -ntp"'
+
+podTemplate(label: label, containers: [
+  containerTemplate(name: 'maven', image: 'maven:3.6.1-jdk-8', ttyEnabled: true, command: 'cat')
+  ], volumes: [
+  persistentVolumeClaim(mountPath: '/root/.m2/repository', claimName: 'maven-repo', readOnly: false)
+  ]) {
+
+  node(label) {
+    stage('Checkout') {
+      checkout scm
+    }
+    stage('Release prepare') {
+      container('maven') {
+          sh "mvn -B ${mvnOpts} release:clean release:prepare -DreleaseVersion=${releaseVersion} -DdevelopmentVersion=${developmentVersion}"
+      }
+    }
+    stage('Release perform') {
+      container('maven') {
+          sh "mvn -B ${mvnOpts} release:perform"
+      }
+    }
+  }
+}
 // HARBOR_REGISTRY : 별도 Global로 세팅 된 변수임.
 // HARBOR_CREDENTIALS : Jenkins폴더에 Credential로 등록한 이름과 같아야 함
 
