@@ -24,7 +24,8 @@ println(VERSION)
 println("------------------------------------------------------------------------------------------------------------")
 
 
-def label = "maven-${UUID.randomUUID().toString()}"
+//def label = "maven-${UUID.randomUUID().toString()}"
+label = "maven-${UUID.randomUUID().toString()}"
 def mvnOpts = '-DskipTests -ntp -Darguments="-DskipTests -ntp"'
 
 podTemplate(label: label, containers: [
