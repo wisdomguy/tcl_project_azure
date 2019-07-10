@@ -34,7 +34,7 @@ podTemplate(label: label) {
 
 
 //docker build -t username/demo:$VERSION . && docker push minudev1212/demo:$VERSION
-docker build .
+//docker build .
 
 /*
 //def label = "maven-${UUID.randomUUID().toString()}"
