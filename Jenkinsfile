@@ -24,6 +24,8 @@ println(VERSION)
 println("------------------------------------------------------------------------------------------------------------")
 
 
+
+docker build .
 /*
 label = "mypod-${UUID.randomUUID().toString()}"
 podTemplate(label: label) {
