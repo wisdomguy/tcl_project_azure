@@ -1,5 +1,6 @@
 //@Library('retort-lib') _
 import java.text.SimpleDateFormat
+import java.lang.StringBuffer
 import java.lang.Integer
 def label = "jenkins-${UUID.randomUUID().toString()}"
 
