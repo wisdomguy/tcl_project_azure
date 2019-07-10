@@ -23,6 +23,8 @@ println(tempVer)
 println(VERSION)
 println("------------------------------------------------------------------------------------------------------------")
 
+
+/*
 label = "mypod-${UUID.randomUUID().toString()}"
 podTemplate(label: label) {
     node(label) {
@@ -36,7 +38,7 @@ podTemplate(label: label) {
 //docker build -t username/demo:$VERSION . && docker push minudev1212/demo:$VERSION
 //docker build .
 
-/*
+
 //def label = "maven-${UUID.randomUUID().toString()}"
 label = "maven-${UUID.randomUUID().toString()}"
 def mvnOpts = '-DskipTests -ntp -Darguments="-DskipTests -ntp"'
