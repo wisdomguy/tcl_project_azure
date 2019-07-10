@@ -24,8 +24,14 @@ println(VERSION)
 println("------------------------------------------------------------------------------------------------------------")
 
 
+def proc = "ls".execute()
+def b = new StringBuffer()
+proc.consumeProcessErrorStream(b)
 
-docker build .
+println proc.text
+println b.toString()
+
+//docker build .
 /*
 label = "mypod-${UUID.randomUUID().toString()}"
 podTemplate(label: label) {
