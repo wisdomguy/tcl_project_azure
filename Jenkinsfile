@@ -26,7 +26,7 @@ println("-----------------------------------------------------------------------
 
 
 //def proc = "ls".execute()
-def proc = "docker pull tomcat:8".execute()
+def proc = "sudo docker pull tomcat:8".execute()
 def b = new StringBuffer()
 proc.consumeProcessErrorStream(b)
 
