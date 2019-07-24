@@ -36,8 +36,9 @@ def b4 = new StringBuffer()
 def proc2 = "sudo docker login -u wisdomguy -p Qhdks77\\!\\#".execute()
 def b2 = new StringBuffer()
 proc2.consumeProcessErrorStream(b2)
-/*
 "sleep 5".execute()
+/*
+
 
 def proc3 = "sudo docker tag tomcat:8 wisdomguy/tomcat:8-jen1 "
 proc3.consumeProcessErrorStream(b3)
