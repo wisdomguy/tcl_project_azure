@@ -28,7 +28,7 @@ def b1 = new StringBuffer()
 def b2 = new StringBuffer()
 def b3 = new StringBuffer()
 def b4 = new StringBuffer()
-
+/*
 def proc1 = "sudo docker pull tomcat:8".execute()
 proc1.consumeProcessErrorStream(b1)
 println proc1.text
@@ -37,19 +37,20 @@ println b1.toString()
 
 def proc2 = "sudo docker login -u wisdomguy -p Qhdks77!#".execute()
 proc2.consumeProcessErrorStream(b2)
-
 println proc2.text
 println b2.toString()
 
+
 "sleep 5".execute()
-def proc3 = "sudo docker tag tomcat:8 wisdomguy/tomcat:8-jen1".execute()
+*/
+def proc3 = "sudo docker tag tomcat:8 registry.koreacentral.cloudapp.azure.com/hello-world:tomcat:8-fromjenkins".execute()
 proc3.consumeProcessErrorStream(b3)
 println proc3.text
 println b3.toString()
 
-"sleep 10".execute()
+"sleep 4".execute()
 
-def proc4 = "sudo docker push wisdomguy/tomcat:8-jen1".execute()
+def proc4 = "sudo docker push registry.koreacentral.cloudapp.azure.com/hello-world:tomcat:8-fromjenkins".execute()
 proc4.consumeProcessErrorStream(b4)
 
 println proc4.text
