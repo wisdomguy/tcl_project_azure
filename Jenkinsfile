@@ -29,14 +29,13 @@ def b1 = new StringBuffer()
 def b3 = new StringBuffer()
 def b4 = new StringBuffer()
 
-//def proc1 = "sudo docker pull tomcat:8".execute()
-//proc1.consumeProcessErrorStream(b1)
-//println proc1.text
-//println b1.toString()
-//"sleep 3".execute()
+def proc1 = "sudo docker pull tomcat:8".execute()
+proc1.consumeProcessErrorStream(b1)
+println proc1.text
+println b1.toString()
+"sleep 20".execute()
 
-
-def proc2 = "sudo docker login -u wisdomguy -p Qhdks77\\!\\#".execute()
+def proc2 = "sudo docker login -u wisdomguy -p Qhdks77\\\!\\\#".execute()
 def b2 = new StringBuffer()
 proc2.consumeProcessErrorStream(b2)
 
