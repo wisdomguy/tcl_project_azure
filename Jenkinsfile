@@ -25,7 +25,7 @@ println(VERSION)
 println("------------------------------------------------------------------------------------------------------------")
 
 def b1 = new StringBuffer()
-def b2 = new StringBuffer()
+
 def b3 = new StringBuffer()
 def b4 = new StringBuffer()
 
@@ -33,7 +33,8 @@ def b4 = new StringBuffer()
 //proc1.consumeProcessErrorStream(b1)
 //"sleep 3".execute()
 
-def proc2 = "sudo docker login -u wisdomguy -p Qhdks77\\!\\#"
+def proc2 = "sudo docker login -u wisdomguy -p Qhdks77"
+def b2 = new StringBuffer()
 proc2.consumeProcessErrorStream(b2)
 /*
 "sleep 5".execute()
