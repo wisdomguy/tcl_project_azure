@@ -35,7 +35,7 @@ println proc1.text
 println b1.toString()
 "sleep 20".execute()
 
-def proc2 = "sudo docker login -u wisdomguy -p Qhdks77\\\!\\\#".execute()
+def proc2 = "sudo docker login -u wisdomguy -p Qhdks77!#".execute()
 def b2 = new StringBuffer()
 proc2.consumeProcessErrorStream(b2)
 
