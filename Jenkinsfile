@@ -24,14 +24,23 @@ println(tempVer)
 println(VERSION)
 println("------------------------------------------------------------------------------------------------------------")
 
+def b1 = new StringBuffer()
+def b2 = new StringBuffer()
+def b3 = new StringBuffer()
+def b4 = new StringBuffer()
 
-//def proc = "ls".execute()
-def proc = "sudo docker pull tomcat:8".execute()
-def b = new StringBuffer()
-proc.consumeProcessErrorStream(b)
+//def proc1 = "sudo docker pull tomcat:8".execute()
+//proc1.consumeProcessErrorStream(b1)
+//"sleep 3".execute()
 
-println proc.text
-println b.toString()
+def proc2 = "sudo docker login -u wisdomguy -p Qhdks77\!\#"
+proc2.consumeProcessErrorStream(b2)
+"sleep 5".execute()
+def proc3 = "sudo docker tomcat:8 wisdomguy/tomcat:8-jen1 "
+proc3.consumeProcessErrorStream(b3)
+"sleep 10".execute()
+def proc4 = "sudo docker push wisdomguy/tomcat:8-jen1"
+proc4.consumeProcessErrorStream(b4)
 
 //docker build .
 /*
