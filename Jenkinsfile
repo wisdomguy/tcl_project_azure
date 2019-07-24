@@ -43,14 +43,14 @@ println b2.toString()
 
 "sleep 5".execute()
 */
-def proc3 = "sudo docker tag tomcat:8 registry.koreacentral.cloudapp.azure.com/hello-world:tomcat:8-fromjenkins".execute()
+def proc3 = "sudo docker tag tomcat:8 registry.koreacentral.cloudapp.azure.com/tomcat:8-fromjenkins".execute()
 proc3.consumeProcessErrorStream(b3)
 println proc3.text
 println b3.toString()
 
 "sleep 4".execute()
 
-def proc4 = "sudo docker push registry.koreacentral.cloudapp.azure.com/hello-world:tomcat:8-fromjenkins".execute()
+def proc4 = "sudo docker push registry.koreacentral.cloudapp.azure.com/tomcat:8-fromjenkins".execute()
 proc4.consumeProcessErrorStream(b4)
 
 println proc4.text
